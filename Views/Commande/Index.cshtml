@@ -1,0 +1,92 @@
+﻿@model IEnumerable<gestion_de_stock.Models.Commande>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<header class="navbar navbar-expand-md navbar-light bg-primary mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/Logo/4947506.png" alt="Logo" class="logo-img">
+            GESTION DE STOCK
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="Index">
+                        <i class="fas fa-user"></i>
+                        Gérer les clients
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Produit" asp-action="Index">
+                        <i class="fas fa-shopping-cart"></i>
+                        Gérer les produits
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Commande" asp-action="Index">
+                        <i class="fas fa-clipboard-list"></i>
+                        Gérer les commandes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <form method="post" asp-controller="Commande" asp-action="Logout" class="form-inline">
+                        <button type="submit" class="nav-link btn btn-link text-light" style="text-decoration:none;margin-top:-2px">
+                            Déconnexion
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row justify-content-between mb-3">
+        <div class="col-12 col-md-4">
+            
+        </div>
+
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date commande</th>
+                        <th>Quantité du produit</th>
+                        <th>Id client</th>
+                        <th>Id produit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.dateCommande)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.quantiteDemandee)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idClient)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idProduit)
+                            </td>
+                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+

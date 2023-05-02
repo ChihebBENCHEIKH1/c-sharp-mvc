@@ -1,0 +1,67 @@
+﻿
+@model gestion_de_stock.Models.Produit
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="d-flex justify-content-center">
+    <div class="col-lg-6">
+        <h1 class="display-4 mb-4">Ajouter un produit</h1>
+        <form asp-action="Create" method="post" class="needs-validation" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="NomProduit" class="form-label">Nom de Produit</label>
+                <input asp-for="NomProduit" class="form-control" required />
+                <div class="invalid-feedback">
+                    Donner un nom pour le produit
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PrixUnit" class="form-label">Prix</label>
+                <input asp-for="PrixUnit" class="form-control" required />
+                <div class="invalid-feedback">
+                    Donner le prix de produit
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Categorie" class="form-label">Catégorie</label>
+                <input asp-for="Categorie" class="form-control" required />
+                <div class="invalid-feedback">
+                   Donner la catégorie du produit
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Quantite" class="form-label">Quantité</label>
+                <input asp-for="Quantite" class="form-control"  required/>
+                <div class="invalid-feedback">
+                   Donner la quantité du produit
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Créer</button>
+
+            <a asp-action="Index" class="btn btn-secondary ms-2">Retour à la liste</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    .form-label {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    textarea {
+        resize: none;
+    }
+</style>

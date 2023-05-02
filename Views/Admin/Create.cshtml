@@ -1,0 +1,66 @@
+﻿@model gestion_de_stock.Models.Client
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="d-flex justify-content-center">
+    <div class="col-lg-6">
+        <h1 class="display-4 mb-4">Ajouter un Client</h1>
+        <form asp-action="Create" method="post" class="needs-validation" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Nom" class="form-label">Nom</label>
+                <input asp-for="Nom" class="form-control" required />
+                <div class="invalid-feedback">
+                    Please enter a valid name.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Prenom" class="form-label">Prénom</label>
+                <input asp-for="Prenom" class="form-control" required />
+                <div class="invalid-feedback">
+                    Please enter a valid first name.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Numero" class="form-label">Numéro de téléphone</label>
+                <input asp-for="Numero" class="form-control" required />
+                <div class="invalid-feedback">
+                    Please enter a valid phone number.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Addresse" class="form-label">Adresse</label>
+                <textarea asp-for="Addresse" class="form-control" rows="3" required></textarea>
+                <div class="invalid-feedback">
+                    Please enter a valid address.
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Créer</button>
+
+            <a asp-action="Index" class="btn btn-secondary ms-2">Retour à la liste</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    .form-label {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    textarea {
+        resize: none;
+    }
+</style>

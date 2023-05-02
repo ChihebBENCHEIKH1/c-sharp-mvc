@@ -1,0 +1,52 @@
+﻿@model IEnumerable<gestion_de_stock.Models.Commande>
+
+@{
+    ViewData["Title"] = "Commandes";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Commandes de @ViewBag.NomClient</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary mb-3" asp-action="Create">Nouvelle commande</a>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Date de commande</th>
+                            <th>Quantité demandée</th>
+                            <th>Id Produit</th>
+                            <th>Prix du commande</th>
+
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.dateCommande)</td>
+                                <td>@Html.DisplayFor(modelItem => item.quantiteDemandee)</td>
+                                <td>@Html.DisplayFor(modelItem => item.idProduit)</td>
+                                <td>@Html.DisplayFor(modelItem => item.prix)</td>
+                                <td>
+                                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Modifier</a>
+                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <form asp-controller="Client" asp-action="Logout" method="post">
+                        <button type="submit" class="btn btn-secondary">Déconnexion</button>
+                    </form>
+                </div>
+            </div>
+           
+
+        </div>
+    </div>
+</div>

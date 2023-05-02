@@ -1,0 +1,113 @@
+﻿@model IEnumerable<gestion_de_stock.Models.Produit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<header class="navbar navbar-expand-md navbar-light bg-primary mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/Logo/4947506.png" alt="Logo" class="logo-img">
+            GESTION DE STOCK
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Admin" asp-action="Index">
+                        <i class="fas fa-user"></i>
+                        Gérer les clients
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Produit" asp-action="Index">
+                        <i class="fas fa-shopping-cart"></i>
+                        Gérer les produits
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Commande" asp-action="Index">
+                        <i class="fas fa-clipboard-list"></i>
+                        Gérer les commandes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <form method="post" asp-controller="Produit" asp-action="Logout" class="form-inline">
+                        <button type="submit" class="nav-link btn btn-link text-light" style="text-decoration:none;margin-top:-2px">
+                            Déconnexion
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row justify-content-between mb-3">
+        <div class="col-12 col-md-4">
+            <form class="input-group" sp-action="Index" method="post">
+                <input class="form-control" name="search" type="search" placeholder="Rechercher un produit" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">
+                    <i class="fas fa-search"></i>
+                    Rechercher
+                </button>
+            </form>
+        </div>
+        <div class="col-12 col-md-2 mt-3 mt-md-0">
+            <a class="btn btn-primary" asp-action="Create">
+                <i class="fas fa-plus"></i>
+                Ajouter un Produit
+            </a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom du produit</th>
+                    <th>Prix</th>
+                    <th>Categorie</th>
+                    <th>Quantite</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdProduit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NomProduit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrixUnit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categorie)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantite)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.IdProduit" class="btn btn-primary btn-sm">
+                                Edit
+                            </a>
+
+                            <a asp-action="Delete" asp-route-id="@item.IdProduit" class="btn btn-danger btn-sm">
+                                Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

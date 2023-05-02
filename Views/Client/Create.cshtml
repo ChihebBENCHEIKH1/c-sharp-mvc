@@ -1,0 +1,112 @@
+﻿@model gestion_de_stock.Models.Commande
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="d-flex justify-content-center">
+    <div class="col-lg-6">
+        <h1 class="display-4 mb-4">Ajouter une Commande</h1>
+        <form asp-action="Create" method="post" class="needs-validation" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="idProduit" class="form-label">id Produit</label>
+                <select asp-for="idProduit" id="idProduit" class="form-control" asp-items="@ViewBag.Produits">
+                    <option disabled selected value="">Select a product</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid product.
+                </div>
+            </div>
+
+
+
+            <div class="mb-3">
+                <label asp-for="dateCommande" class="form-label">Date du Commande</label>
+                <input asp-for="dateCommande" class="form-control" required />
+                <div class="invalid-feedback">
+                    Donner la date du commande
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="quantiteDemandee" class="form-label">Quantité</label>
+                <input asp-for="quantiteDemandee" id="quantiteDemandee" class="form-control" required min="1" />
+                <div id="warning" class="invalid-feedback">
+                    Donner la quantité
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="prix" class="form-label">Prix total</label>
+                <input asp-for="prix" readonly id="prix" class="form-control" value="0" />
+              
+            </div>
+           
+
+            
+
+            <button type="submit" class="btn btn-primary">Créer</button>
+
+            <a asp-action="Redirect" class="btn btn-secondary ms-2">Retour à la liste</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <text>
+        <script>
+            $(document).ready(function () {
+                $("#idProduit").change(function () {
+                    var productId = $(this).val();
+                    var price = $("option:selected", this).parent().attr("label");
+                    console.log("prix " + price);
+                    $("#prix").val(prixUnitaire);
+                    var dictionary = @Html.Raw(Json.Serialize(ViewBag.ProductQuantities));
+                    var products = @Html.Raw(Json.Serialize(ViewBag.Produits))
+                    var prixUnitaire = 0;
+                   
+                    $("#prix").val(prixUnitaire);
+                    for (var key in dictionary) {
+                        if (productId == key) {
+                            var maxQuantity = dictionary[productId];
+                            console.log(maxQuantity);
+                            if (maxQuantity == 0) {
+                                $("#quantiteDemandee").val("Out of stock");
+                                $("#quantiteDemandee").prop("disabled", true);
+                            } else {
+                                $("#quantiteDemandee").removeAttr("disabled");
+                                $("#quantiteDemandee").attr("max", maxQuantity);
+                                $("#quantiteDemandee").on("input", function () {
+                                    var currentQuantity = $(this).val();
+                                    if (parseInt(currentQuantity) > parseInt(maxQuantity)) {
+                                        $(this).val(maxQuantity);
+                                    }
+                                    $("#prix").val(price * currentQuantity);
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+
+
+        </script>
+    </text>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<style>
+    .form-label {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    textarea {
+        resize: none;
+    }
+</style>
