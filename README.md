@@ -35,7 +35,7 @@ To run the Stock Management application, ensure that you have the following prer
 
    ```shell
    PM> Update-Database
- ```
+   ```
    Start the application in Visual Studio, and it will open in your default web browser.
 ## Usage
 Register a new user account or log in with an existing account.
